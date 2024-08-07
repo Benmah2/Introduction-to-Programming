@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="denne-mappen-trengs-ikke-roeres/er-du-synsk.css">
+    <title>Er du synsk?</title>
+</head>
+<body>
+    
+    <header>
+        <h1 id = "h1">Are You Clairvoyant?</h1>
+        <h2 id = "h2">Click The Right Box</h2>
+        <p id = "rules">Rules: The Box which contains the right answer is randomized.
+            -You must attempt to click the correct box every round.
+            -A wrong click results in health loss.
+            -Good Luck!
+        </p>
+        <!--Her setter vi opp flere html elementer som skal manipuleres ved en senere anledning
+        ved bruk av getelementbyid og innerhtml-->
+
+
+
+    </header>
+
+    
+        <img id = "box1-div" src = "pixelbox.png">
+        <img id = "box2-div" src = "pixelbox.png">
+        <!--Her setter vi opp "knappene" som spilleren skal ta i bruk-->
+
+        <p id = "number-of-lives-div"></p>
+        <!--Her setter vi opp en tom paragraf der livene til spilleren skal printes ut ved bruk av js-->
+
+        <div id="number-of-right-answers-div">
+        <p>Correct Clicks: 0</p>
+        </div>
+        <!--Her setter vi opp diven som skal telle antall riktige klikk-->
+
+        <div id="number-of-wrong-answers-div">
+        <p>Wrong Clicks: 0</p>
+        </div>    
+        <!--Her setter vi opp diven som teller antall feile svar-->
+
+        <div id="outputDiv">
+        <p>Click either of the boxes to start the game</p>            
+        </div>
+        <!--Her er enda et html element som skal manipuleres basert på om brukeren vinner eller ei-->
+
+        <p id = "livesOutput"></p>
+
+        <p id = "gameVictory"></p>
+
+        <p id = "gameDefeat"></p>
+
+        <button id = "refresh">Restart Game</button>
+
+<script>
+    var refreshPage = document.getElementById("refresh");
+    var rules = document.getElementById("rules");
+    var h2 = document.getElementById("h2");
+    var h1 = document.getElementById("h1");
+    var boxOne = document.getElementById("box1-div");
+    var boxTwo = document.getElementById("box2-div");
+    var numOfLives = document.getElementById("number-of-lives-div");
+    var numOfCorrectAnswer = document.getElementById("number-of-right-answers-div");
+    var numOfIncAnswer = document.getElementById("number-of-wrong-answers-div");
+    var output = document.getElementById("outputDiv");
+    var correctValue = 0;
+    var wrongValue = 0;
+    var livesOutput = document.getElementById("livesOutput");
+    var livesLeft = 5;
+    var gameVictory = document.getElementById("gameVictory");
+    var gameDefeat = document.getElementById("gameDefeat");
+    /*Henter inn alle html elementene vi skal bruke og setter dem opp som variabler i js*/
+    
+    /*Setter også opp 3 nye variabler: "correctvalue" "wrongvalue" & "livesleft" med verdier,
+    disse variablene fungerer som tellere og teller "clicksene" til brukeren, manipuleres lenger nede i js*/
+        
+
+        displayHealth();
+
+        /*displayHealth funksjon som holder tellingen på "hjertene" som representerer spillerens
+        liv, denne funksjonen kalles på senere når funksjonen "whichBox" kjører*/
+
+        function displayHealth(){
+            numOfLives.innerHTML = "";
+
+            for(let i = 0; i < livesLeft; i++)
+            {
+                numOfLives.innerHTML += `<img src = "heart.gif" style =  "height: 75px; width: 75px;">`;
+            }
+        }
+        
+        
+        function whichBox() {
+            let randomNum = Math.floor(Math.random() * 2) + 1;
+            
+            if (randomNum === 1) {
+                correctValue++;
+                numOfCorrectAnswer.innerHTML = `<p>Correct Clicks: ${correctValue}</p>`;
+
+                /*Vi setter opp randomNum som en variabel, gir den verdi ved bruk av math.random
+                vi fastsetter også at den verdien på boxen som er "korrekt" er 1. Dersom boxen har 1 i verdi
+                skal vi plusse på, dette printes ut ved bruk at template literals*/
+                
+            }
+            if (randomNum === 2) {
+                wrongValue++;
+                livesLeft -= 1;
+                numOfIncAnswer.innerHTML = `<p>Wrong Clicks: ${wrongValue}</p>`;
+
+                /*Her gjør vi det samme som rett ovenfor bare at den teller feile klikk
+                denne teller også ned på livesLeft da liv bare skal plusses på dersom visse poengsummer nås
+                denne conditionen fastsettes lenger nede*/
+            
+            }
+            if(correctValue === 10) {
+                gameVictory.innerHTML = `<img src = "victoryroyale.png">`;
+                h1.innerHTML = `Holy crap! Good job!`;
+                h2.innerHTML = `Can you do it once more?`;
+                rules.innerHTML = `Reload page to try again`;
+                boxOne.remove();
+                boxTwo.remove();
+                numOfLives.remove();
+                numOfCorrectAnswer.remove();
+                numOfIncAnswer.remove();
+                output.remove();
+                livesOutput.remove();
+
+                /*Her sier vi at dersom verdien til correctValue blir 10 så skal spillet avsluttes
+                vi manipulerer visse html elementer for å lage en "vinnerskjerm" og fjerner andre
+                elementer*/
+
+            }
+            if(livesLeft === 0) {
+                gameDefeat.innerHTML = `<img src = "defeatsynsk.jpg"`;
+                h1.innerHTML = `Youre not that bright, are you?`;
+                h2.innerHTML = `Wanna be humiliated again?`;
+                rules.innerHTML = `Reload page to try again`;
+                boxOne.remove();
+                boxTwo.remove();
+                numOfLives.remove();
+                numOfCorrectAnswer.remove();
+                numOfIncAnswer.remove();
+                output.remove();
+                livesOutput.remove();
+
+                /*Her fastsetter vi at dersom livesLeft går til 0 så avsluttes også spillet,
+                samme som isted manipulerer vi og fjerner elementer for å lage en "taperskjerm"*/
+
+            }
+            if(correctValue === 3 || correctValue === 5 || correctValue === 7) {
+                livesLeft += 1;
+
+                /*Her setter vi opp enda en conditional som fastsetter at livesLeft skal plusses på dersom
+                correctValue har en viss verdi*/
+
+            }
+            
+            displayHealth();
+
+            /*Her kaller vi på "displayHealth" funksjonen*/
+        
+        }
+
+
+
+       function pageRefresh() {
+           history.go(0);
+
+        /*Enkel funksjon som når den kalles på refresher siden, den setter sidehistorikken tilbake*/
+
+       }
+
+        boxTwo.onclick = whichBox;
+        boxOne.onclick = whichBox;
+        refresh.onclick = pageRefresh;
+
+        /*Gir html elementer en knapp som kaller på funksjoner når de trykkes på*/
+
+</script>
+
+
+</body>
+</html>

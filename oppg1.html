@@ -1,0 +1,62 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppvarming 1</title>
+</head>
+<body>
+    
+
+    <h1>MEMEGENERATOR 1.0</h1>
+    
+    <p id="count">Number of Times Greeted Grevious: <span id="imagecount">0</span></p>
+    <!---Her setter vi opp en P tag og span tag for manipulasjon senere i javascript--->
+    
+    <div id="outputimage" src=""></div>
+    <!---Her setter vi opp en div som skal tas i bruk senere når vi skriver ut bildet til siden--->
+    
+    <button id = "SayHelloToGrevious" type = "button" Value = "addimages">Say Hello To Grevious</button>
+    <!---Her setter vi opp en knapp og gir id samt verdier til knappen, det settes også skrift på knappen--->
+    
+    <script>
+    
+    var button = document.getElementById("SayHelloToGrevious");
+    var button2 = document.getElementById("SayHello");
+    var output = document.getElementById("outputimage");
+    var imageCount = document.getElementById("imagecount");
+    var numCount = document.getElementById("count");
+    /*Her henter vi inn HTML verdiene våres ved bruk av document.getelementByID og gir dem verdi
+    i form av en variabel*/
+    
+
+        function imageCounts() {
+            imageCounts.innerHTML = 0;
+            output.innerHTML = "";
+
+            var randomNumber = Math.floor(Math.random() * 100) +1;
+            /*Her setter vi opp en variabel og gir den en tilfeldig verdi ved bruk av math.random*/
+            
+            for (var i = 1; i < randomNumber; i++) {
+                /*Her setter vi opp en for loop med en variabel, vi navngir den, setter verdi,
+                setter betingelser for variabelen sin verdi ifht den andre variabelen (randomNumber)
+                som er viktige for loopen sin fortsettelse*/
+
+                output.innerHTML += `<img src = "hellothere2.jpg" width = "150px" height = "150px">`;
+                
+                /*Her manipulerer vi verdien til den p tagen vi satt opp i HTML tidligere og
+                fastsetter at funksjonen skal gi den en verdi*/
+
+                imageCount.innerHTML = i;
+                /*Her setter vi verdien til variabelen (imageCount) til å samsvare med verdien til
+                variabelen (i)*/
+            }
+
+            }
+        
+            button.onclick=imageCounts;
+            /*Her setter vi opp en onclick event, når button variabelen klikkes skal den kjøre 
+            funksjonen (imageCounts)*/
+    </script>
+
+</body>
+</html>

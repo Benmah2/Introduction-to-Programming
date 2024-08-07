@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppvarming 2</title>
+</head>
+<body>
+    
+    
+    <h3>Whos got a cat?</h3>
+    <button id="img1">Me?</button>
+    <button id="img2">Me?</button>
+    <div id="output"></div>
+    <!--Her setter vi opp bilder og gir de en id slik at vi kan hente dem i Javascript-->
+    
+<script>
+    var img1 = document.getElementById("img1");
+    var img2 = document.getElementById("img2");
+    var frosk = `<img src="frog.jpg">`
+    var cat = `<img src="cat.jpg">`
+    /*Her henter vi inn bildene i Javascript samt largrer verdien deres i variabler*/
+        
+        function frogOrCat() {
+            output.innerHTML = "";
+            /*Her setter vi opp en funksjon, vi sier at svaret skal printes ut i vår div tag som har output som ID*/
+        
+            var randomNumber = Math.floor(Math.random() * 2 + 1)
+            /*Vi setter opp en variabel som heter randomNumber og ber math random gi den en tilfeldig verdi*/
+        
+        
+        
+            if (randomNumber === 1) {
+                output.innerHTML = `${frosk} This person owns a Frog`
+            } else {
+                output.innerHTML = `${cat} This person owns a Cat`
+            }
+            /*Her har vi en else if som fastslår hva som skal printes i div tagen basert på hvilke verdi
+            variabelen randomNumber har fått av math random*/
+        }
+        
+        
+        
+        img1.onclick = frogOrCat
+        img2.onclick = frogOrCat
+        /*Her setter vi opp 2 onclick funksjoner som begge skal sette i gang "frogOrCat" funksjonen*/
+</script>
+
+</body>
+</html>
